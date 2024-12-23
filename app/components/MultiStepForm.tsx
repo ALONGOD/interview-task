@@ -37,13 +37,18 @@ const MultiStepForm = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<string[]>([]);
     const [showResult, setShowResult] = useState(false);
+    const [showCelebration, setShowCelebration] = useState(false);
 
     const handleNext = (answer: string) => {
         setAnswers([...answers, answer]);
         if (currentStep < questions.length - 1) {
             setCurrentStep(currentStep + 1);
         } else {
-            setShowResult(true);
+            setShowCelebration(true);
+            setTimeout(() => {
+                setShowCelebration(false);
+                setShowResult(true);
+            }, 2500); // 2.5 seconds delay
         }
     };
 
@@ -53,7 +58,7 @@ const MultiStepForm = () => {
         setShowResult(false);
     };
 
-    const progressPercentage = (currentStep / (questions.length - 1)) * 100;
+    const progressPercentage = (currentStep / (questions.length)) * 100;
 
     return (
         <div>
@@ -67,11 +72,15 @@ const MultiStepForm = () => {
                             style={{ width: `${progressPercentage}%` }}
                         ></div>
                     </div>
-                    <Question
-                        question={questions[currentStep].question}
-                        options={questions[currentStep].options}
-                        onNext={handleNext}
-                    />
+                    {showCelebration ? (
+                        <div className="celebration">🎉 Congratulations! 🎉</div>
+                    ) : (
+                        <Question
+                            question={questions[currentStep].question}
+                            options={questions[currentStep].options}
+                            onNext={handleNext}
+                        />
+                    )}
                 </div>
             )}
         </div>

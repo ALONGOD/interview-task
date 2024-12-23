@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import MultiStepForm from "./components/MultiStepForm";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,7 +8,9 @@ export default function Home() {
       <h1>Welcome To INU</h1>
       <p>INU is a platform that connects dog owners with dog services.</p>
       <p>Answer a few questions, and we’ll recommend the perfect service for your dog!</p>
-      <MultiStepForm />
+      <Link href="/questionnaire">
+        <button>Go to questionnaire</button>
+      </Link>
     </div>
   );
 }

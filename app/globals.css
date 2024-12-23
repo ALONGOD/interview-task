@@ -65,3 +65,20 @@ button {
 button:hover {
   background-color: var(--primary-hover-color);
 }
+
+.celebration {
+  font-size: 2rem;
+  animation: celebration-animation 1s ease-in-out infinite;
+}
+
+@keyframes celebration-animation {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
