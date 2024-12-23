@@ -11,6 +11,8 @@ export default function Home() {
       <Link href="/questionnaire">
         <button>Go to questionnaire</button>
       </Link>
+      <img src="../public/pngtree-puppy-labrador-retriever-cute-dog-animal-png-image_9993729.png" alt="Dog" />
     </div>
   );
 }
+
