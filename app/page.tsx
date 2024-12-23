@@ -1,3 +1,6 @@
+"use client"
+import { Tutorial } from "./components/Tutorial";
+import React from "react";
 export default function Home() {
   const tutorialStages = [
     {
@@ -22,9 +25,9 @@ export default function Home() {
   };
 
   return (
-      <div>
-        <h1>INU Tutorial</h1>
-        <Tutorial stages={tutorialStages} onComplete={handleTutorialComplete} />
-      </div>
+    <div>
+      <h1>INU Tutorial</h1>
+      <Tutorial stages={tutorialStages} onComplete={handleTutorialComplete} />
+    </div>
   );
 }
