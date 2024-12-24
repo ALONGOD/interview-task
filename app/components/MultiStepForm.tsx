@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Question from "./Question";
-import Result from "./Result";
+
+interface MultiStepFormProps {
+    onFinish: (answers: string[]) => void;
+}
 
 const questions = [
     {
@@ -33,10 +36,9 @@ const questions = [
     },
 ];
 
-const MultiStepForm = () => {
+const MultiStepForm: React.FC<MultiStepFormProps> = ({ onFinish }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<string[]>([]);
-    const [showResult, setShowResult] = useState(false);
     const [showCelebration, setShowCelebration] = useState(false);
 
     const handleNext = (answer: string) => {
@@ -44,44 +46,33 @@ const MultiStepForm = () => {
         if (currentStep < questions.length - 1) {
             setCurrentStep(currentStep + 1);
         } else {
+            setCurrentStep(currentStep + 1);
             setShowCelebration(true);
             setTimeout(() => {
                 setShowCelebration(false);
-                setShowResult(true);
-            }, 2500); // 2.5 seconds delay
+                onFinish([...answers, answer]);
+            }, 2000); // 2 seconds delay
         }
-    };
-
-    const handleRestart = () => {
-        setCurrentStep(0);
-        setAnswers([]);
-        setShowResult(false);
     };
 
     const progressPercentage = (currentStep / (questions.length)) * 100;
 
     return (
         <div>
-            {showResult ? (
-                <Result answers={answers} onRestart={handleRestart} />
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                <div
+                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-in-out"
+                    style={{ width: `${progressPercentage}%` }}
+                ></div>
+            </div>
+            {showCelebration ? (
+                <div className="celebration">🎉 Congratulations! 🎉</div>
             ) : (
-                <div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-                        <div
-                            className="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-in-out"
-                            style={{ width: `${progressPercentage}%` }}
-                        ></div>
-                    </div>
-                    {showCelebration ? (
-                        <div className="celebration">🎉 Congratulations! 🎉</div>
-                    ) : (
-                        <Question
-                            question={questions[currentStep].question}
-                            options={questions[currentStep].options}
-                            onNext={handleNext}
-                        />
-                    )}
-                </div>
+                <Question
+                    question={questions[currentStep].question}
+                    options={questions[currentStep].options}
+                    onNext={handleNext}
+                />
             )}
         </div>
     );
