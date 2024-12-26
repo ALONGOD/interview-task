@@ -2,6 +2,7 @@ import React from "react";
 
 interface ResultProps {
     answers: string[];
+    questions: { question: string; options: string[] }[];
     onRestart: () => void;
 }
 
@@ -25,7 +26,7 @@ const getRecommendation = (answers: string[]) => {
     return services[Math.floor(Math.random() * services.length)];
 };
 
-const Result: React.FC<ResultProps> = ({ answers, onRestart }) => {
+const Result: React.FC<ResultProps> = ({ answers, questions, onRestart }) => {
     const recommendation = getRecommendation(answers);
     const imageUrl = serviceImages[recommendation];
     const description = serviceDescriptions[recommendation];
@@ -33,9 +34,11 @@ const Result: React.FC<ResultProps> = ({ answers, onRestart }) => {
     return (
         <div>
             <h2>Summary of your answers:</h2>
-            <ul>
+            <ul style={{ fontSize: '0.9em' }}>
                 {answers.map((answer, index) => (
-                    <li key={index}>{answer}</li>
+                    <li key={index}>
+                        <strong>{questions[index].question}:</strong> {answer}
+                    </li>
                 ))}
             </ul>
             <h1>We recommend: {recommendation}</h1>
