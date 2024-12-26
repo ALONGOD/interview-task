@@ -51,7 +51,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({ onFinish }) => {
             setTimeout(() => {
                 setShowCelebration(false);
                 onFinish([...answers, answer]);
-            }, 2000); // 2 seconds delay
+            }, 2000);
         }
     };
 

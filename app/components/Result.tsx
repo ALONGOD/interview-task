@@ -22,7 +22,6 @@ const serviceDescriptions: { [key: string]: string } = {
 };
 
 const getRecommendation = (answers: string[]) => {
-    // Implement your logic here to determine the best service based on answers
     return services[Math.floor(Math.random() * services.length)];
 };
 
